@@ -1,0 +1,42 @@
+一.简答题
+
+1、Webpack 的构建流程主要有哪些环节？如果可以请尽可能详尽的描述 Webpack 打包的整个过程。
+
+Webpack构建流程主要环节：
+
+1.安装webpack模块（webpack webpack-cli）。
+2.新建webpack配置文件（webpack.config.js）。
+3.在webpack配置文件中配置相应的配置，包括打包入口文件（entry）的配置（默认是src目录下的index.js），打包输出文件（output）的配置（默认是dist目录），加载
+资源规则的配置（通过各种加载资源的loader实现），打包插件的配置（各种打包插件XX-plugin）。
+4.命令行运行yarn webpack 或者 npx webpack实现整体项目的打包
+
+2.Loader 和 Plugin 有哪些不同？请描述一下开发 Loader 和 Plugin 的思路。
+
+Loader和Plugin的不同：
+
+1.Loader是加载各种资源的模块依赖，运用Loader可以将所要打包的资源文件，打包到输出文件中去，Plugin是处理各种资源的插件，可以实现资源文件的复制，模板文件的
+的转译，模块热替换等操作。
+2.Plugin相比较于Loader，所实现的功能更加强大，可以很灵活的处理打包逻辑。
+
+开发Loader的思路：
+
+1.项目根目录新建一个loader.js。
+2.loader.js中导出一个函数，这个函数接收一个source参数，这个参数接收打包文件的内容，通过在这个函数内返回一个对打包内容解析过后的内容。
+注意：返回的必须是一个js脚本或者是和其他loader配置生成js脚本，因为在Loader导出函数内部返回的内容会被打包到输出文件中去，输出文件是以js脚本形式存在。
+3.在Webpack.config.js的module下的rules中配置这个loader。
+
+开发Plugin的思路：
+
+1.在Webpack.config.js中或者在外部新建一个class类（这个类必须是包含apply函数）。
+2.apply函数接收一个compiler参数，这个参数接收webpack实例。
+3.通过在webpack的钩子机制，在钩子函数中挂载，插件所要实现的逻辑。
+4.在webpack.config.js中导出对象中，在plugins配置中实例化插件对象，实现插件的配置。
+
+
+二.编程题
+
+1、使用 Webpack 实现 Vue 项目打包任务
+
+使用webpack实现vue打包项目：vue-app-base项目
+
+2.webpack实现vue打包项目说明文档：http://naotu.baidu.com/file/1b105df05373dbff73b8c2254c173cc3?token=07e3a84c81ba48ea
